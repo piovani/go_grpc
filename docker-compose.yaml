@@ -1,0 +1,11 @@
+services:
+  http:
+    container_name: http
+    build: .
+    working_dir: "/go/src"
+    volumes:
+      - .:/go/src
+    ports:
+      - "7007:7007"
+    command: "server http"
+      
