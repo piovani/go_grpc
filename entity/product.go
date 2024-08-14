@@ -7,11 +7,11 @@ import (
 )
 
 type Product struct {
-	ID        uuid.UUID `json:"id,omitempty"`
-	Name      string    `json:"name"`
-	Value     float64   `json:"value"`
-	Stock     int       `json:"stock"`
-	CreatedAt time.Time `json:"created_at"`
+	ID        uuid.UUID
+	Name      string
+	Value     float64
+	Stock     int
+	CreatedAt time.Time
 }
 
 func NewProduct(name string, value float64, stock int, createdAt time.Time) *Product {

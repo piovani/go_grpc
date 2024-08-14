@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/piovani/go_grpc/ui/grpc"
 	"github.com/piovani/go_grpc/ui/http"
 	"github.com/spf13/cobra"
 )
@@ -12,19 +13,19 @@ func Execute() error {
 	}
 
 	cmd.AddCommand(
-		// Gprc,
+		Grpc,
 		Http,
 	)
 
 	return cmd.Execute()
 }
 
-// var Gprc = &cobra.Command{
-// 	Use: "grpc",
-// 	Run: func(cmd *cobra.Command, args []string) {
-// 		grpc.Execute()
-// 	},
-// }
+var Grpc = &cobra.Command{
+	Use: "grpc",
+	Run: func(cmd *cobra.Command, args []string) {
+		grpc.Execute()
+	},
+}
 
 var Http = &cobra.Command{
 	Use: "http",

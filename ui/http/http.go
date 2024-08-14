@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/piovani/go_grpc/entity"
 )
 
 type ProductDto struct {
@@ -35,10 +36,9 @@ func CreateProduct() http.HandlerFunc {
 			http.Error(w, err.Error(), http.StatusBadRequest)
 		}
 
-		// product := entity.NewProduct(productDto.Name, productDto.Value, productDto.Stock, productDto.CreatedAt)
-		// fmt.Println(productDto)
+		product := entity.NewProduct(productDto.Name, productDto.Value, productDto.Stock, productDto.CreatedAt)
 
 		w.WriteHeader(http.StatusCreated)
-		w.Write([]byte("Product Created"))
+		w.Write([]byte(fmt.Sprintf("%v", product)))
 	}
 }

@@ -1,22 +1,29 @@
 package grpc
 
-// import (
-// 	"fmt"
+import (
+	"fmt"
+)
 
-// 	transp_grpc "google.golang.org/api/transport/grpc"
-// 	"google.golang.org/grpc/credentials/insecure"
-// )
+type ProductDto struct {
+	Name      string `protobuf:"bytes,1,opt,name=name,proto3"`
+	Value     string `protobuf:"bytes,2,opt,name=value,proto3"`
+	Stock     string `protobuf:"bytes,3,opt,name=stock,proto3"`
+	CreatedAt string `protobuf:"bytes,4,opt,name=created_at,proto3"`
+}
 
-// type ClientGrpc struct{}
+func Execute() {
+	fmt.Println("AQUI")
+}
 
-// func Execute() {
-// 	conn, err := transp_grpc.Dial("localhost:7000", transp_grpc.WithTransportCredentials(insecure.NewCredentials()))
-// 	if err != nil {
-// 		panic(err)
-// 	}
+func CreateProduct() {
+	var productDto ProductDto
 
-// 	client :=
-// 		fmt.Println("AQUI")
-// }
+	// if err := proto.Ummarshal(data, &productDto); err != nil {
+	// 	panic(err)
+	// }
 
-// func
+	// product := entity.NewProduct(productDto.Name, productDto.Value, productDto.Stock, productDto.CreatedAt)
+
+	fmt.Println(productDto)
+
+}
