@@ -4,5 +4,5 @@ services:
     build: .
     ports:
       - "7007:7007"
-    command: "server http"
+    command: "make http"
       

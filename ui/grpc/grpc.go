@@ -1,29 +1,49 @@
 package grpc
 
 import (
-	"fmt"
+	"context"
+	"net"
+
+	"github.com/piovani/go_grpc/ui/grpc/pb"
+	grpc "google.golang.org/grpc"
 )
 
-type ProductDto struct {
-	Name      string `protobuf:"bytes,1,opt,name=name,proto3"`
-	Value     string `protobuf:"bytes,2,opt,name=value,proto3"`
-	Stock     string `protobuf:"bytes,3,opt,name=stock,proto3"`
-	CreatedAt string `protobuf:"bytes,4,opt,name=created_at,proto3"`
+type Server struct {
+	pb.UnimplementedProductServer
 }
 
 func Execute() {
-	fmt.Println("AQUI")
+	listener, err := net.Listen("tcp", "localhost:7008")
+	if err != nil {
+		panic(err)
+	}
+
+	s := grpc.NewServer()
+	pb.RegisterProductServer(s, &Server{})
+	if err := s.Serve(listener); err != nil {
+		panic(err)
+	}
 }
 
-func CreateProduct() {
-	var productDto ProductDto
+func (s *Server) CreateProduct(ctx context.Context, product *pb.ProductRequest) (*pb.ProductResponse, error) {
+	return &pb.ProductResponse{
+		Name:      "test-name2",
+		Value:     1.23,
+		Stock:     10,
+		CreatedAt: "2024",
+	}, nil
+	// var productDto ProductDto
 
-	// if err := proto.Ummarshal(data, &productDto); err != nil {
-	// 	panic(err)
+	// if err := proto.Unmarshal(data, &productDto); err != nil {
+	// 	// imprementar error
 	// }
 
-	// product := entity.NewProduct(productDto.Name, productDto.Value, productDto.Stock, productDto.CreatedAt)
+	// // if err := proto.Ummarshal(data, &productDto); err != nil {
+	// // 	panic(err)
+	// // }
 
-	fmt.Println(productDto)
+	// // product := entity.NewProduct(productDto.Name, productDto.Value, productDto.Stock, productDto.CreatedAt)
+
+	// fmt.Println(productDto)
 
 }
