@@ -22,7 +22,7 @@ func Execute() {
 
 	r.Post("/product", CreateProduct())
 
-	if err := http.ListenAndServe(":7007", r); err != nil {
+	if err := http.ListenAndServe(":8080", r); err != nil {
 		fmt.Println(err)
 	}
 }
@@ -37,9 +37,16 @@ func CreateProduct() http.HandlerFunc {
 		}
 
 		product := entity.NewProduct(productDto.Name, productDto.Value, productDto.Stock, productDto.CreatedAt)
-		fmt.Println(product)
 
+		productDtoOut := ProductDto{
+			Name:      product.Name,
+			Value:     product.Value,
+			Stock:     product.Stock,
+			CreatedAt: product.CreatedAt,
+		}
+
+		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusCreated)
-		w.Write([]byte(fmt.Sprintf("%v", product)))
+		json.NewEncoder(w).Encode(productDtoOut)
 	}
 }

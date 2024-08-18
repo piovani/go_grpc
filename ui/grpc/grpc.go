@@ -2,6 +2,7 @@ package grpc
 
 import (
 	"context"
+	"fmt"
 	"net"
 	"time"
 
@@ -21,6 +22,7 @@ func Execute() {
 	}
 
 	s := grpc.NewServer()
+	println("Running")
 	pb.RegisterProductServer(s, &Server{})
 	if err := s.Serve(listener); err != nil {
 		panic(err)
@@ -28,6 +30,7 @@ func Execute() {
 }
 
 func (s *Server) CreateProduct(ctx context.Context, productRequest *pb.ProductRequest) (*pb.ProductResponse, error) {
+	fmt.Println("RECEBDIO")
 	created_at, err := time.Parse("2006-01-02 15:04:05", productRequest.CreatedAt)
 	if err != nil {
 		panic(err)

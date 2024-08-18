@@ -14,3 +14,5 @@ RUN go build -o server
 FROM alpine:3.20.2
 
 COPY --from=build /go/src/server /usr/bin/server
+
+EXPOSE 8080

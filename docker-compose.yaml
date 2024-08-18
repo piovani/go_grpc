@@ -3,6 +3,17 @@ services:
     container_name: http
     build: .
     ports:
-      - "7007:7007"
-    command: "make http"
+      - "7007:8080"
+    mem_limit: 32m
+    cpus: 0.1 # 62,5 MHz
+    command: "server http"
+  
+  grpc:
+    container_name: grpc
+    build: .
+    ports:
+      - "7008:8080"
+    mem_limit: 32m
+    cpus: 0.1 # 62,5 MHz
+    command: "server grpc"
       
