@@ -3,7 +3,9 @@ package grpc
 import (
 	"context"
 	"net"
+	"time"
 
+	"github.com/piovani/go_grpc/entity"
 	"github.com/piovani/go_grpc/ui/grpc/pb"
 	grpc "google.golang.org/grpc"
 )
@@ -25,25 +27,23 @@ func Execute() {
 	}
 }
 
-func (s *Server) CreateProduct(ctx context.Context, product *pb.ProductRequest) (*pb.ProductResponse, error) {
+func (s *Server) CreateProduct(ctx context.Context, productRequest *pb.ProductRequest) (*pb.ProductResponse, error) {
+	created_at, err := time.Parse("2006-01-02 15:04:05", productRequest.CreatedAt)
+	if err != nil {
+		panic(err)
+	}
+
+	prooduct := entity.NewProduct(
+		productRequest.Name,
+		float64(productRequest.Value),
+		int(productRequest.Stock),
+		created_at,
+	)
+
 	return &pb.ProductResponse{
-		Name:      "test-name2",
-		Value:     1.23,
-		Stock:     10,
-		CreatedAt: "2024",
+		Name:      prooduct.Name,
+		Value:     float32(prooduct.Value),
+		Stock:     int32(prooduct.Stock),
+		CreatedAt: prooduct.CreatedAt.String(),
 	}, nil
-	// var productDto ProductDto
-
-	// if err := proto.Unmarshal(data, &productDto); err != nil {
-	// 	// imprementar error
-	// }
-
-	// // if err := proto.Ummarshal(data, &productDto); err != nil {
-	// // 	panic(err)
-	// // }
-
-	// // product := entity.NewProduct(productDto.Name, productDto.Value, productDto.Stock, productDto.CreatedAt)
-
-	// fmt.Println(productDto)
-
 }

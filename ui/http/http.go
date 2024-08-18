@@ -37,6 +37,7 @@ func CreateProduct() http.HandlerFunc {
 		}
 
 		product := entity.NewProduct(productDto.Name, productDto.Value, productDto.Stock, productDto.CreatedAt)
+		fmt.Println(product)
 
 		w.WriteHeader(http.StatusCreated)
 		w.Write([]byte(fmt.Sprintf("%v", product)))
