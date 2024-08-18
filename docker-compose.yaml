@@ -12,7 +12,8 @@ services:
     container_name: grpc
     build: .
     ports:
-      - "7008:8080"
+      - "7008:7008/udp"
+      - "7008:7008/tcp"
     mem_limit: 32m
     cpus: 0.1 # 62,5 MHz
     command: "server grpc"
